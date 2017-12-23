@@ -87,45 +87,56 @@ var template = React.createElement(
 
 var count = 0;
 var sumOne = function sumOne() {
-  return console.log("plusOne");
+  count++;
+  reRenderApp();
+  console.log("plusOne");
 };
 var minusOne = function minusOne() {
-  return console.log("minusOne");
+  count--;
+  reRenderApp();
+  console.log("minusOne");
 };
 var resetFn = function resetFn() {
-  return console.log("resetFn");
+  count = 0;
+  reRenderApp();
+  console.log("resetFn");
 };
-var templateTwo = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    'New App'
-  ),
-  React.createElement(
-    'h2',
-    null,
-    'Count: ',
-    count
-  ),
-  React.createElement(
-    'button',
-    { onClick: sumOne },
-    '+1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: minusOne },
-    '-1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: resetFn },
-    'Reset'
-  )
-);
 
 var appRoot = document.getElementById('app');
 
-ReactDOM.render(templateTwo, appRoot);
+var reRenderApp = function reRenderApp() {
+  var templateTwo = React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      'New App'
+    ),
+    React.createElement(
+      'h2',
+      null,
+      'Count: ',
+      count
+    ),
+    React.createElement(
+      'button',
+      { onClick: sumOne },
+      '+1'
+    ),
+    React.createElement(
+      'button',
+      { onClick: minusOne },
+      '-1'
+    ),
+    React.createElement(
+      'button',
+      { onClick: resetFn },
+      'Reset'
+    )
+  );
+
+  ReactDOM.render(templateTwo, appRoot);
+};
+
+reRenderApp();
