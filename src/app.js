@@ -1,5 +1,5 @@
 
-
+let appRoot = document.getElementById('app');
 const myP = 'This is my New Change JSX Write it by myself LOLZ';
 const myTittle = 'Indecision App Dinamic Tittle'
 
@@ -9,17 +9,18 @@ const whishList = {
   l2: 'Travel A LOT',
   l3: 'PIMP BETTER'};
 
-const options = {
-  opt1:'Buy a DSLR CAM',
-  opt2:'Get a lot better',
-  opt3:'Be a better soft developer'};
+let options = [
+  'Buy a DSLR CAM',
+  'Get a lot better',
+  'Be a better soft developer'
+];
 
 function betterList() {
-    if (options){
+    if (options.length > 0){
       return (
         <ul><h4>Better things to do 2018</h4>
-          {Object.keys(options).map((opt, index) => (
-            <li key={index}>{options[opt]}</li>
+          {options.map((opt, index) => (
+            <li key={index}>{opt}</li>
           ))}
         </ul>
       );
@@ -46,48 +47,43 @@ function getTitle(opt) {
 
 }
 
-let template = (
-  <div>
-    <h1>{myTittle}</h1>
-    <p>{myP}</p>
-    <ol>{whishList.title ? getTitle('lol') : getTitle() }
-      {getList()}
-    </ol>
-    {betterList()}
-  </div>
-);
-
-let count = 0;
-const sumOne = () => {
-  count++;
-  reRenderApp();
-  console.log("plusOne");
-};
-const minusOne = () => {
-  count--;
-  reRenderApp();
-  console.log("minusOne");
-};
-const resetFn = ()  => {
-  count=0;
-  reRenderApp();
-  console.log("resetFn");
+const onFormSubmit = (e) => {
+  e.preventDefault();
+  console.log('Form Submitted');
+  const newWhish = e.target.elements.whish.value;
+  if (newWhish){
+    options.push(newWhish);
+    e.target.elements.whish.value = '';
+    reRenderApp();
+  }
 };
 
-let appRoot = document.getElementById('app');
+const removeAll = () => {
+  options = [];
+  reRenderApp();
+};
 
 const reRenderApp = () => {
-    const templateTwo = (
+  let template = (
+    <div>
+      <h1>{myTittle}</h1>
+      <p>{myP}</p>
+      <ol>{whishList.title ? getTitle('lol') : getTitle() }
+        {getList()}
+      </ol>
       <div>
-        <h1>New App</h1>
-        <h2>Count: {count}</h2>
-        <button onClick={sumOne}>+1</button>
-        <button onClick={minusOne}>-1</button>
-        <button onClick={resetFn}>Reset</button>
+        <button onClick={removeAll}>Clear all better list</button>
       </div>
-    );
+      {betterList()}
+      <form onSubmit={onFormSubmit}>
+        <input type='text' name='whish'></input>
+        <button>Add a new Whish</button>
+      </form>
+    </div>
+  );
 
-    ReactDOM.render(templateTwo, appRoot);
+  ReactDOM.render(template, appRoot);
+
 };
 
 reRenderApp();

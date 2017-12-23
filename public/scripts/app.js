@@ -1,5 +1,6 @@
 'use strict';
 
+var appRoot = document.getElementById('app');
 var myP = 'This is my New Change JSX Write it by myself LOLZ';
 var myTittle = 'Indecision App Dinamic Tittle';
 
@@ -9,13 +10,10 @@ var whishList = {
   l2: 'Travel A LOT',
   l3: 'PIMP BETTER' };
 
-var options = {
-  opt1: 'Buy a DSLR CAM',
-  opt2: 'Get a lot better',
-  opt3: 'Be a better soft developer' };
+var options = ['Buy a DSLR CAM', 'Get a lot better', 'Be a better soft developer'];
 
 function betterList() {
-  if (options) {
+  if (options.length > 0) {
     return React.createElement(
       'ul',
       null,
@@ -24,11 +22,11 @@ function betterList() {
         null,
         'Better things to do 2018'
       ),
-      Object.keys(options).map(function (opt, index) {
+      options.map(function (opt, index) {
         return React.createElement(
           'li',
           { key: index },
-          options[opt]
+          opt
         );
       })
     );
@@ -63,80 +61,65 @@ function getTitle(opt) {
   }
 }
 
-var template = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    myTittle
-  ),
-  React.createElement(
-    'p',
-    null,
-    myP
-  ),
-  React.createElement(
-    'ol',
-    null,
-    whishList.title ? getTitle('lol') : getTitle(),
-    getList()
-  ),
-  betterList()
-);
-
-var count = 0;
-var sumOne = function sumOne() {
-  count++;
-  reRenderApp();
-  console.log("plusOne");
-};
-var minusOne = function minusOne() {
-  count--;
-  reRenderApp();
-  console.log("minusOne");
-};
-var resetFn = function resetFn() {
-  count = 0;
-  reRenderApp();
-  console.log("resetFn");
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
+  console.log('Form Submitted');
+  var newWhish = e.target.elements.whish.value;
+  if (newWhish) {
+    options.push(newWhish);
+    e.target.elements.whish.value = '';
+    reRenderApp();
+  }
 };
 
-var appRoot = document.getElementById('app');
+var removeAll = function removeAll() {
+  options = [];
+  reRenderApp();
+};
 
 var reRenderApp = function reRenderApp() {
-  var templateTwo = React.createElement(
+  var template = React.createElement(
     'div',
     null,
     React.createElement(
       'h1',
       null,
-      'New App'
+      myTittle
     ),
     React.createElement(
-      'h2',
+      'p',
       null,
-      'Count: ',
-      count
+      myP
     ),
     React.createElement(
-      'button',
-      { onClick: sumOne },
-      '+1'
+      'ol',
+      null,
+      whishList.title ? getTitle('lol') : getTitle(),
+      getList()
     ),
     React.createElement(
-      'button',
-      { onClick: minusOne },
-      '-1'
+      'div',
+      null,
+      React.createElement(
+        'button',
+        { onClick: removeAll },
+        'Clear all better list'
+      )
     ),
+    betterList(),
     React.createElement(
-      'button',
-      { onClick: resetFn },
-      'Reset'
+      'form',
+      { onSubmit: onFormSubmit },
+      React.createElement('input', { type: 'text', name: 'whish' }),
+      React.createElement(
+        'button',
+        null,
+        'Add a new Whish'
+      )
     )
   );
 
-  ReactDOM.render(templateTwo, appRoot);
+  ReactDOM.render(template, appRoot);
 };
 
 reRenderApp();
