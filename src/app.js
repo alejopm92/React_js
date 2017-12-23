@@ -1,15 +1,15 @@
 
 
-var myP = 'This is my New Change JSX Write it by myself LOLZ';
-var myTittle = 'Indecision App Dinamic Tittle'
+const myP = 'This is my New Change JSX Write it by myself LOLZ';
+const myTittle = 'Indecision App Dinamic Tittle'
 
-var whishList = {
+const whishList = {
   title:'This is the list of my propurse for 2018:',
   l1: 'React SR' ,
   l2: 'Travel A LOT',
   l3: 'PIMP BETTER'};
 
-var options = {
+const options = {
   opt1:'Buy a DSLR CAM',
   opt2:'Get a lot better',
   opt3:'Be a better soft developer'};
@@ -46,19 +46,17 @@ function getTitle(opt) {
 
 }
 
-var template = (
+let template = (
   <div>
     <h1>{myTittle}</h1>
     <p>{myP}</p>
-    <ol>
-      <ol>{whishList.title ? getTitle('lol') : getTitle() }
-        {getList()}
-      </ol>
+    <ol>{whishList.title ? getTitle('lol') : getTitle() }
+      {getList()}
     </ol>
     {betterList()}
   </div>
 );
 
-var appRoot = document.getElementById('app');
+let appRoot = document.getElementById('app');
 
 ReactDOM.render(template, appRoot);

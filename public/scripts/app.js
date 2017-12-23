@@ -79,12 +79,8 @@ var template = React.createElement(
   React.createElement(
     'ol',
     null,
-    React.createElement(
-      'ol',
-      null,
-      whishList.title ? getTitle('lol') : getTitle(),
-      getList()
-    )
+    whishList.title ? getTitle('lol') : getTitle(),
+    getList()
   ),
   betterList()
 );
