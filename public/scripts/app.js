@@ -1,29 +1,21 @@
-'use strict';
+"use strict";
 
-function squ(x) {
-  return x * x;
+var multiplier = {
+  numbers: [2, 15, 20, 6, 99],
+  multiplyBy: 3,
+  newArrayFn: function newArrayFn() {
+    var _this = this;
+
+    return this.numbers.map(function (number) {
+      return _this.multiplyBy * number;
+    });
+  }
 };
 
-console.log(squ(5));
+console.log(multiplier.newArrayFn());
 
-var square = function square(x) {
-  return x * x;
-};
+var newArray = multiplier.numbers.map(function (number) {
+  return number * multiplier.multiplyBy;
+});
 
-console.log(square(25));
-
-var squareSimple = function squareSimple(x) {
-  return x * x;
-};
-
-console.log(square(35));
-
-var getFirstName = function getFirstName(name) {
-  return name.split(' ')[0];
-};
-console.log(getFirstName('Luis Fernando'));
-
-var getFirstNameOther = function getFirstNameOther(name) {
-  return name.split(' ')[0];
-};
-console.log(getFirstNameOther('Sergio Alejandro'));
+console.log(newArray);
