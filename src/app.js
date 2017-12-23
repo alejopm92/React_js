@@ -57,6 +57,22 @@ let template = (
   </div>
 );
 
+let count = 0;
+const sumOne = () => console.log("plusOne");
+const minusOne = () => console.log("minusOne");
+const resetFn = ()  => console.log("resetFn");
+const templateTwo = (
+  <div>
+    <h1>New App</h1>
+    <h2>Count: {count}</h2>
+    <button onClick={sumOne}>+1</button>
+    <button onClick={minusOne}>-1</button>
+    <button onClick={resetFn}>Reset</button>
+  </div>
+);
+
+
+
 let appRoot = document.getElementById('app');
 
-ReactDOM.render(template, appRoot);
+ReactDOM.render(templateTwo, appRoot);

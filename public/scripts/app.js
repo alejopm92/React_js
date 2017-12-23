@@ -1,21 +1,131 @@
-"use strict";
+'use strict';
 
-var multiplier = {
-  numbers: [2, 15, 20, 6, 99],
-  multiplyBy: 3,
-  newArrayFn: function newArrayFn() {
-    var _this = this;
+var myP = 'This is my New Change JSX Write it by myself LOLZ';
+var myTittle = 'Indecision App Dinamic Tittle';
 
-    return this.numbers.map(function (number) {
-      return _this.multiplyBy * number;
+var whishList = {
+  title: 'This is the list of my propurse for 2018:',
+  l1: 'React SR',
+  l2: 'Travel A LOT',
+  l3: 'PIMP BETTER' };
+
+var options = {
+  opt1: 'Buy a DSLR CAM',
+  opt2: 'Get a lot better',
+  opt3: 'Be a better soft developer' };
+
+function betterList() {
+  if (options) {
+    return React.createElement(
+      'ul',
+      null,
+      React.createElement(
+        'h4',
+        null,
+        'Better things to do 2018'
+      ),
+      Object.keys(options).map(function (opt, index) {
+        return React.createElement(
+          'li',
+          { key: index },
+          options[opt]
+        );
+      })
+    );
+  }
+};
+
+function getList() {
+  if (Object.keys(whishList).length > 0) {
+    return Object.keys(whishList).map(function (key, index) {
+      return React.createElement(
+        'li',
+        { key: index },
+        whishList[key]
+      );
     });
   }
 };
 
-console.log(multiplier.newArrayFn());
+function getTitle(opt) {
+  if (opt) {
+    return React.createElement(
+      'h4',
+      null,
+      whishList.title
+    );
+  } else {
+    return React.createElement(
+      'h5',
+      null,
+      'Nonsense'
+    );
+  }
+}
 
-var newArray = multiplier.numbers.map(function (number) {
-  return number * multiplier.multiplyBy;
-});
+var template = React.createElement(
+  'div',
+  null,
+  React.createElement(
+    'h1',
+    null,
+    myTittle
+  ),
+  React.createElement(
+    'p',
+    null,
+    myP
+  ),
+  React.createElement(
+    'ol',
+    null,
+    whishList.title ? getTitle('lol') : getTitle(),
+    getList()
+  ),
+  betterList()
+);
 
-console.log(newArray);
+var count = 0;
+var sumOne = function sumOne() {
+  return console.log("plusOne");
+};
+var minusOne = function minusOne() {
+  return console.log("minusOne");
+};
+var resetFn = function resetFn() {
+  return console.log("resetFn");
+};
+var templateTwo = React.createElement(
+  'div',
+  null,
+  React.createElement(
+    'h1',
+    null,
+    'New App'
+  ),
+  React.createElement(
+    'h2',
+    null,
+    'Count: ',
+    count
+  ),
+  React.createElement(
+    'button',
+    { onClick: sumOne },
+    '+1'
+  ),
+  React.createElement(
+    'button',
+    { onClick: minusOne },
+    '-1'
+  ),
+  React.createElement(
+    'button',
+    { onClick: resetFn },
+    'Reset'
+  )
+);
+
+var appRoot = document.getElementById('app');
+
+ReactDOM.render(templateTwo, appRoot);
