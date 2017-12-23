@@ -9,18 +9,41 @@ var whishList = {
   l2: 'Travel A LOT',
   l3: 'PIMP BETTER'
 }
+var opt1 = {
+  parameter: 'Buy a DSLR CAM'
+};
 
-function getList(opt) {
-  if (opt ==1){
-      return <li>{whishList.l1}</li>;
-  }
-  else if (opt ==2){
-      return <li>{whishList.l2}</li>;
-  }
-  else if (opt ==3){
-      return <li>{whishList.l3}</li>;
-    };
-  }
+var opt2 = {
+  parameter: 'Get a lot better'
+};
+
+var opt3 = {
+  parameter :'Be a better soft developer'
+};
+
+var options = [opt1, opt2, opt3];
+
+function betterList() {
+    if (options.length > 0){
+      return (
+        <ol><h4>Better things to do 2018</h4>
+          {options.map((opt, index) => (
+            <li key={index}>{opt.parameter}</li>
+          ))}
+        </ol>
+      );
+    }
+};
+
+function getList() {
+  if (Object.keys(whishList).length > 0){
+      return (
+        Object.keys(whishList).map((key, index) => (
+          <li key={index}>{whishList[key]}</li>
+        ))
+      );
+    }
+  };
 
 function getTitle(opt) {
   if (opt){
@@ -38,12 +61,10 @@ var template = (
     <p>{myP}</p>
     <ol>
       <ol>{whishList.title ? getTitle('lol') : getTitle() }
-        {getList(1)}
-        {getList(2)}
-        {getList(3)}
-        {getList(4)}
+        {getList()}
       </ol>
     </ol>
+    {betterList()}
   </div>
 );
 

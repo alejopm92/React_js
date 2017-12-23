@@ -9,28 +9,52 @@ var whishList = {
   l2: 'Travel A LOT',
   l3: 'PIMP BETTER'
 };
+var opt1 = {
+  parameter: 'Buy a DSLR CAM'
+};
 
-function getList(opt) {
-  if (opt == 1) {
+var opt2 = {
+  parameter: 'Get a lot better'
+};
+
+var opt3 = {
+  parameter: 'Be a better soft developer'
+};
+
+var options = [opt1, opt2, opt3];
+
+function betterList() {
+  if (options.length > 0) {
     return React.createElement(
-      'li',
+      'ol',
       null,
-      whishList.l1
+      React.createElement(
+        'h4',
+        null,
+        'Better things to do 2018'
+      ),
+      options.map(function (opt, index) {
+        return React.createElement(
+          'li',
+          { key: index },
+          opt.parameter
+        );
+      })
     );
-  } else if (opt == 2) {
-    return React.createElement(
-      'li',
-      null,
-      whishList.l2
-    );
-  } else if (opt == 3) {
-    return React.createElement(
-      'li',
-      null,
-      whishList.l3
-    );
-  };
-}
+  }
+};
+
+function getList() {
+  if (Object.keys(whishList).length > 0) {
+    return Object.keys(whishList).map(function (key, index) {
+      return React.createElement(
+        'li',
+        { key: index },
+        whishList[key]
+      );
+    });
+  }
+};
 
 function getTitle(opt) {
   if (opt) {
@@ -68,12 +92,10 @@ var template = React.createElement(
       'ol',
       null,
       whishList.title ? getTitle('lol') : getTitle(),
-      getList(1),
-      getList(2),
-      getList(3),
-      getList(4)
+      getList()
     )
-  )
+  ),
+  betterList()
 );
 
 var appRoot = document.getElementById('app');
