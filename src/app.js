@@ -7,30 +7,21 @@ var whishList = {
   title:'This is the list of my propurse for 2018:',
   l1: 'React SR' ,
   l2: 'Travel A LOT',
-  l3: 'PIMP BETTER'
-}
-var opt1 = {
-  parameter: 'Buy a DSLR CAM'
-};
+  l3: 'PIMP BETTER'};
 
-var opt2 = {
-  parameter: 'Get a lot better'
-};
-
-var opt3 = {
-  parameter :'Be a better soft developer'
-};
-
-var options = [opt1, opt2, opt3];
+var options = {
+  opt1:'Buy a DSLR CAM',
+  opt2:'Get a lot better',
+  opt3:'Be a better soft developer'};
 
 function betterList() {
-    if (options.length > 0){
+    if (options){
       return (
-        <ol><h4>Better things to do 2018</h4>
-          {options.map((opt, index) => (
-            <li key={index}>{opt.parameter}</li>
+        <ul><h4>Better things to do 2018</h4>
+          {Object.keys(options).map((opt, index) => (
+            <li key={index}>{options[opt]}</li>
           ))}
-        </ol>
+        </ul>
       );
     }
 };
