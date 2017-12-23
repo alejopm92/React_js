@@ -2,45 +2,32 @@
 
 var appRoot = document.getElementById('app');
 
-var showedDetails = '';
+var showDetails = false;
 
-var hideDetails = function hideDetails() {
-  showedDetails = '';
+var visibility = function visibility() {
+  showDetails = !showDetails;
   reRenderApp();
 };
 
-var startDetails = function startDetails() {
-  showedDetails = 'There is some details that I want you to know!';
-  reRenderApp();
-};
-
-var showDetais = function showDetais() {
-  if (showedDetails) {
-    return React.createElement(
+var showedDetails = function showedDetails() {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'button',
+      { onClick: visibility },
+      showDetails ? 'Hide Details' : 'Show Details'
+    ),
+    showDetails && React.createElement(
       'div',
       null,
-      React.createElement(
-        'button',
-        { onClick: hideDetails },
-        ' Hide Details'
-      ),
       React.createElement(
         'p',
         null,
-        showedDetails
+        'Hey my algorithmia Sucks, and here are more details that I want you to know!'
       )
-    );
-  } else {
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'button',
-        { onClick: startDetails },
-        'Show Details'
-      )
-    );
-  }
+    )
+  );
 };
 
 var reRenderApp = function reRenderApp() {
@@ -52,7 +39,7 @@ var reRenderApp = function reRenderApp() {
       null,
       'Visible Toogle'
     ),
-    showDetais()
+    showedDetails()
   );
 
   ReactDOM.render(template, appRoot);
