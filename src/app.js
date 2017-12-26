@@ -50,7 +50,7 @@ class Option extends React.Component {
 class Options extends React.Component {
   constructor(props) {
     super(props);
-    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    this.handleRemoveAll = this.handleRemoveAll.bind (this);
   }
   handleRemoveAll () {
     if(this.props.options){
