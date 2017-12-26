@@ -1,89 +1,93 @@
 
-let appRoot = document.getElementById('app');
-const myP = 'This is my New Change JSX Write it by myself LOLZ';
-const myTittle = 'Indecision App Dinamic Tittle'
-
-const whishList = {
-  title:'This is the list of my propurse for 2018:',
-  l1: 'React SR' ,
-  l2: 'Travel A LOT',
-  l3: 'PIMP BETTER'};
-
-let options = [
-  'Buy a DSLR CAM',
-  'Get a lot better',
-  'Be a better soft developer'
-];
-
-function betterList() {
-    if (options.length > 0){
-      return (
-        <ul><h4>Better things to do 2018</h4>
-          {options.map((opt, index) => (
-            <li key={index}>{opt}</li>
-          ))}
-        </ul>
-      );
-    }
-};
-
-function getList() {
-  if (Object.keys(whishList).length > 0){
-      return (
-        Object.keys(whishList).map((key, index) => (
-          <li key={index}>{whishList[key]}</li>
-        ))
-      );
-    }
-  };
-
-function getTitle(opt) {
-  if (opt){
-    return <h4>{whishList.title}</h4>
+class IndecisionApp extends React.Component {
+  render() {
+    const title = 'Indecision Test';
+    const subtitle = 'Take Action!'
+    const options_render = ['Opt to tke 1', 'Opt to tke 2', 'Opt to tke 3']
+    return (
+        <div>
+          <Header title={title} subtitle={subtitle}/>
+          <Action />
+          <Options options={options_render} />
+          <AddOption />
+      </div>
+    );
   }
-  else {
-    return <h5>Nonsense</h5>
-  }
-
 }
 
-const onFormSubmit = (e) => {
-  e.preventDefault();
-  console.log('Form Submitted');
-  const newWhish = e.target.elements.whish.value;
-  if (newWhish){
-    options.push(newWhish);
-    e.target.elements.whish.value = '';
-    reRenderApp();
-  }
-};
 
-const removeAll = () => {
-  options = [];
-  reRenderApp();
-};
+class Header extends React.Component {
+    render() {
+      return (
+        <div>
+          <h1>{this.props.title}</h1>
+          <h2>{this.props.subtitle}</h2>
+        </div>
+      );
+    }
+}
 
-const reRenderApp = () => {
-  let template = (
-    <div>
-      <h1>{myTittle}</h1>
-      <p>{myP}</p>
-      <ol>{whishList.title ? getTitle('lol') : getTitle() }
-        {getList()}
-      </ol>
+class Action extends React.Component {
+  render() {
+    return (
       <div>
-        <button onClick={removeAll}>Clear all better list</button>
+        <button>What is the best decision to take?</button>
       </div>
-      {betterList()}
-      <form onSubmit={onFormSubmit}>
-        <input type='text' name='whish'></input>
-        <button>Add a new Whish</button>
+    );
+  }
+}
+
+class Option extends React.Component {
+  render(){
+    return (
+      <div>
+        <p>{this.props.option}</p>
+      </div>
+    );
+  }
+}
+
+class Options extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
+  handleRemoveAll () {
+    if(this.props.options){
+        alert('All options were remove');
+    }
+  }
+  render () {
+    return (
+      <div>
+        <button onClick={this.handleRemoveAll.bind(this)}>Remove All options</button>
+        <p>Here should be some options for render like:</p>
+        <ul>
+          {this.props.options.map((opt, index) => (
+            <li key={index}><Option option={opt}/></li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+class AddOption extends React.Component {
+  handleAddOption (e) {
+    e.preventDefault();
+    const new_option = e.target.elements.option_add.value.trim();
+    if (new_option) {
+      alert(new_option);
+    }
+  }
+  render(){
+    return (
+      <form onSubmit={this.handleAddOption}>
+        <input type='text' name='option_add' />
+        <button>This should add an Option for render</button>
       </form>
-    </div>
-  );
+    );
+  }
+}
 
-  ReactDOM.render(template, appRoot);
-
-};
-
-reRenderApp();
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
