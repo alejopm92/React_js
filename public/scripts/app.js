@@ -27,6 +27,29 @@ var IndecisionApp = function (_React$Component) {
   }
 
   _createClass(IndecisionApp, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      try {
+        var json_options_render = localStorage.getItem('options_render');
+        var options_render = JSON.parse(json_options_render);
+        if (options_render) {
+          this.setState(function () {
+            return { options_render: options_render };
+          });
+        }
+      } catch (e) {}
+      console.log('Component did mount');
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.options_render.length !== this.state.options_render.length) {
+        var json_options_render = JSON.stringify(this.state.options_render);
+        localStorage.setItem('options_render', json_options_render);
+        console.log('Component did update');
+      }
+    }
+  }, {
     key: 'handleDeleteOption',
     value: function handleDeleteOption(option_remove) {
       this.setState(function (prevState) {
@@ -167,6 +190,15 @@ var Options = function Options(props) {
       null,
       'Here should be some options for render like:'
     ),
+    props.options.length === 0 && React.createElement(
+      'p',
+      null,
+      React.createElement(
+        'b',
+        null,
+        'Please add Options for select!'
+      )
+    ),
     React.createElement(
       'ul',
       null,
@@ -208,6 +240,9 @@ var AddOption = function (_React$Component2) {
       this.setState(function () {
         return { error: error };
       });
+      if (!error) {
+        e.target.elements.option_add.value = '';
+      }
     }
   }, {
     key: 'render',

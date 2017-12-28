@@ -10,6 +10,26 @@ class IndecisionApp extends React.Component {
       options_render: []
     };
   }
+  componentDidMount() {
+    try {
+      const json_options_render = localStorage.getItem('options_render');
+      const options_render = JSON.parse(json_options_render);
+      if (options_render){
+          this.setState(() =>({options_render}));
+      }
+    } catch (e) {
+
+    }
+    console.log('Component did mount');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.options_render.length !== this.state.options_render.length){
+      const json_options_render = JSON.stringify(this.state.options_render)
+      localStorage.setItem('options_render',json_options_render);
+      console.log('Component did update');
+    }
+  }
 
   handleDeleteOption (option_remove) {
     this.setState((prevState) => ({
@@ -112,6 +132,7 @@ const Options = (props) => {
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All options</button>
       <p>Here should be some options for render like:</p>
+      {props.options.length === 0 && <p><b>Please add Options for select!</b></p> }
       <ul>
         {props.options.map((opt, index) => (
           <li key={index}>
@@ -139,6 +160,9 @@ class AddOption extends React.Component {
     const error = this.props.handleAddOption(new_option);
 
     this.setState(() => ({error}));
+    if(!error){
+      e.target.elements.option_add.value = '';
+    }
   }
   render(){
     return (
