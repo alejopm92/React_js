@@ -9,6 +9,30 @@ class Counter extends React.Component {
       count: 0
     };
   }
+
+  componentDidMount() {
+    try {
+      const json_count = localStorage.getItem('count');
+      const count = parseInt(JSON.parse(json_count));
+      const count_valid = isNaN(count);
+      if (!count_valid){
+          this.setState(() =>({count}));
+      }
+    } catch (e) {
+
+    }
+    console.log('Component did mount');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.count !== this.state.count){
+      const json_count = JSON.stringify(this.state.count)
+      localStorage.setItem('count',json_count);
+      console.log('Component did update');
+      console.log(json_count);
+    }
+  }
+
   handleMinusOne (){
     console.log('Minus 1');
     this.setState((prevState) => {
@@ -58,38 +82,3 @@ class Header extends React.Component {
 
 const appRoot = document.getElementById('app');
 ReactDOM.render(<Counter />, appRoot);
-//
-// let count = 0;
-// const sumOne = () => {
-//   count++;
-//   reRenderApp();
-//   console.log("plusOne");
-// };
-// const minusOne = () => {
-//   count--;
-//   reRenderApp();
-//   console.log("minusOne");
-// };
-// const resetFn = ()  => {
-//   count=0;
-//   reRenderApp();
-//   console.log("resetFn");
-// };
-//
-// let appRoot = document.getElementById('app');
-//
-// const reRenderApp = () => {
-//     const templateTwo = (
-//       <div>
-//         <h1>New App</h1>
-//         <h2>Count: {count}</h2>
-//         <button onClick={sumOne}>+1</button>
-//         <button onClick={minusOne}>-1</button>
-//         <button onClick={resetFn}>Reset</button>
-//       </div>
-//     );
-//
-//     ReactDOM.render(templateTwo, appRoot);
-// };
-//
-// reRenderApp();
